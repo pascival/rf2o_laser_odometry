@@ -25,9 +25,9 @@ CLaserOdometry2DNode::CLaserOdometry2DNode(): Node("CLaserOdometry2DNode")
 
   // Read Parameters
   //----------------
-  this->declare_parameter<std::string>("laser_scan_topic", "/scan");
+  this->declare_parameter<std::string>("laser_scan_topic", "scan");
   this->get_parameter("laser_scan_topic", laser_scan_topic);
-  this->declare_parameter<std::string>("odom_topic", "/odom_rf2o");
+  this->declare_parameter<std::string>("odom_topic", "odom_rf2o");
   this->get_parameter("odom_topic", odom_topic);
   this->declare_parameter<std::string>("base_frame_id", "base_link");
   this->get_parameter("base_frame_id", base_frame_id);
@@ -35,7 +35,7 @@ CLaserOdometry2DNode::CLaserOdometry2DNode(): Node("CLaserOdometry2DNode")
   this->get_parameter("odom_frame_id", odom_frame_id);
   this->declare_parameter<bool>("publish_tf", true);
   this->get_parameter("publish_tf", publish_tf);
-  this->declare_parameter<std::string>("init_pose_from_topic", "/base_pose_ground_truth");
+  this->declare_parameter<std::string>("init_pose_from_topic", "base_pose_ground_truth");
   this->get_parameter("init_pose_from_topic", init_pose_from_topic);
   this->declare_parameter<double>("freq", 10.0);
   this->get_parameter("freq", freq);
@@ -50,7 +50,7 @@ CLaserOdometry2DNode::CLaserOdometry2DNode(): Node("CLaserOdometry2DNode")
       std::bind(&CLaserOdometry2DNode::LaserCallBack, this, std::placeholders::_1));
   
   // Initialize pose
-  if (init_pose_from_topic != "")
+  if (init_pose_from_topic == "") //BUG ? why tf is there a topic published for pose where no pose is...
   {
     initPose_sub = this->create_subscription<nav_msgs::msg::Odometry>(init_pose_from_topic,rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile(),
         std::bind(&CLaserOdometry2DNode::initPoseCallBack, this, std::placeholders::_1));
