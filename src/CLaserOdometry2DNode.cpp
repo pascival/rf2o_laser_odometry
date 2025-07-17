@@ -25,7 +25,7 @@ CLaserOdometry2DNode::CLaserOdometry2DNode(): Node("CLaserOdometry2DNode")
 
   // Read Parameters
   //----------------
-  this->declare_parameter<std::string>("laser_scan_topic", "scan");
+  this->declare_parameter<std::string>("laser_scan_topic", "lidar_scan");
   this->get_parameter("laser_scan_topic", laser_scan_topic);
   this->declare_parameter<std::string>("odom_topic", "odom_rf2o");
   this->get_parameter("odom_topic", odom_topic);

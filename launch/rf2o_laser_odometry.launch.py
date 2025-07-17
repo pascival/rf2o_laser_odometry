@@ -22,7 +22,7 @@ def generate_launch_description():
                 name='rf2o_laser_odometry',
                 output='screen',
                 parameters=[{
-                    'laser_scan_topic' : 'scan',
+                    'laser_scan_topic' : 'lidar_scan',
                     'odom_topic' : 'odom_rf2o',
                     'publish_tf' : True,
                     'base_frame_id' : 'base_link',
